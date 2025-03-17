@@ -1,0 +1,18 @@
+{
+    "name": "GOAP.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:575527c403e287545be000806668ef3b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
