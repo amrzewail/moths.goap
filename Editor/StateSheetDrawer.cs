@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace GOAP.Editor
+namespace Moths.GOAP.Editor
 {
     [CustomPropertyDrawer(typeof(StateSheet))]
     public class StateSheetDrawer : PropertyDrawer

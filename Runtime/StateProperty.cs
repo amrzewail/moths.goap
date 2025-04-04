@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GOAP
+namespace Moths.GOAP
 {
     [System.Serializable]
     public struct StateProperty

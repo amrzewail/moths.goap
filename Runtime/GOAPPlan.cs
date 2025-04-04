@@ -1,9 +1,9 @@
-using GOAP.Collections;
+using Moths.GOAP.Collections;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GOAP
+namespace Moths.GOAP
 {
     public struct GOAPPlan
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GOAP.Collections
+namespace Moths.GOAP.Collections
 {
     public struct ReadonlyList<T>
     {

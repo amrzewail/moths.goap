@@ -1,11 +1,11 @@
-using GOAP.Collections;
+using Moths.GOAP.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace GOAP
+namespace Moths.GOAP
 {
     public class AIAgent : MonoBehaviour
     {

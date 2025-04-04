@@ -1,12 +1,8 @@
 {
-    "name": "GOAP.Editor",
+    "name": "Moths.GOAP",
     "rootNamespace": "",
-    "references": [
-        "GUID:575527c403e287545be000806668ef3b"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "references": [],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

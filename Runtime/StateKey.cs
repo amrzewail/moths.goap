@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GOAP
+namespace Moths.GOAP
 {
     [CreateAssetMenu(menuName = "GOAP/State Key")]
     public class StateKey : ScriptableObject
