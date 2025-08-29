@@ -13,6 +13,8 @@ namespace Moths.GOAP
 
         public ReadonlyArray<GOAPAction> Actions => _actions;
 
+        public Context Context;
+
         [SerializeField]
         List<GOAPGoal> _goals = new List<GOAPGoal>(32);
 
@@ -21,7 +23,6 @@ namespace Moths.GOAP
         private Dictionary<Type, AISensor> _sensorDict;
 
         private bool _isPlanStopped = false;
-        private Context _context;
         private GOAPPlan _currentPlan;
 
         protected virtual void Awake()
@@ -35,9 +36,9 @@ namespace Moths.GOAP
                 _sensorDict[t] = _sensors[i];
             }
 
-            _context = Context.Create();
+            Context = Context.Create();
 
-            PrepareContext(ref _context);
+            PrepareContext(ref Context);
         }
 
         protected virtual void Update()
@@ -48,14 +49,14 @@ namespace Moths.GOAP
 
             if (!_currentPlan.IsComplete() && _currentPlan.Current)
             {
-                _currentPlan.Current.ExecuteUpdate(ref _context);
+                _currentPlan.Current.ExecuteUpdate(ref Context);
 
                 var promisedStates = _currentPlan.Current.PromisedState;
 
                 bool actionCompleted = true;
                 for (int i = 0; i < promisedStates.Length; i++)
                 {
-                    if (!promisedStates[i].Validate(ref _context))
+                    if (!promisedStates[i].Validate(ref Context))
                     {
                         actionCompleted = false;
                         break;
@@ -71,7 +72,7 @@ namespace Moths.GOAP
 
         protected virtual void PrepareContext(ref Context context) 
         {
-            _context.SetValue(this);
+            Context.SetValue(this);
         }
 
         public TSensor GetSensor<TSensor>() where TSensor : AISensor
@@ -94,7 +95,7 @@ namespace Moths.GOAP
 
         private int GoalsComparison(GOAPGoal x, GOAPGoal y)
         {
-            return y.GetPriority(_context).CompareTo(x.GetPriority(_context));
+            return y.GetPriority(Context).CompareTo(x.GetPriority(Context));
         }
 
         public void StopPlan()
@@ -106,7 +107,7 @@ namespace Moths.GOAP
         {
             if (_goals.Count == 0) return;
             _isPlanStopped = false;
-            _currentPlan = GOAPPlanner.CreatePlan(this, ref _context, _goals[0]);
+            _currentPlan = GOAPPlanner.CreatePlan(this, ref Context, _goals[0]);
             Debug.Log($"AIAgent {this.name} Replan for Goal: {_goals[0]}");
         }
 
