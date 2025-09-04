@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Moths.GOAP
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/GOAP/World State")]
+    [CreateAssetMenu(menuName = "Moths/GOAP/World State")]
     public class WorldState : ScriptableObject
     {
         [SerializeField] List<GOAPState> _states;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Moths.GOAP
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/GOAP/Goal")]
+    [CreateAssetMenu(menuName = "Moths/GOAP/Goal")]
     public class GOAPGoal : ScriptableObject
     {
         [SerializeField] GOAPState[] _desiredStates;
