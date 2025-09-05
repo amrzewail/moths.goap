@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Moths.GOAP
 {
-    public abstract class Modifier : ScriptableObject
+    public interface IModifier
     {
         public abstract float GetValue(Context context);
     }

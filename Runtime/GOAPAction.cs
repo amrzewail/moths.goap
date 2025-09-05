@@ -1,6 +1,5 @@
 using Moths.GOAP.Collections;
-using System.Collections;
-using System.Collections.Generic;
+using Moths.Serialization;
 using UnityEngine;
 
 namespace Moths.GOAP
@@ -10,7 +9,7 @@ namespace Moths.GOAP
         [SerializeField] float _chance = 10;
         [SerializeField] GOAPState[] _prerequisiteStates;
         [SerializeField] GOAPState[] _promisedStates;
-        [SerializeField] Modifier[] _chanceModifiers;
+        [SerializeField] InterfaceReference<IModifier>[] _chanceModifiers;
 
         public ReadonlyArray<GOAPState> PrerequisiteState => new ReadonlyArray<GOAPState>(_prerequisiteStates);
 
@@ -20,7 +19,7 @@ namespace Moths.GOAP
         public float CalculateChance(Context context)
         {
             float cost = _chance;
-            for (int i = 0; i < _chanceModifiers.Length; i++) cost *= _chanceModifiers[i].GetValue(context);
+            for (int i = 0; i < _chanceModifiers.Length; i++) cost *= _chanceModifiers[i].Value.GetValue(context);
             return cost;
         }
 

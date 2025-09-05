@@ -10,9 +10,12 @@
 		"url": "https://github.com/amrzewail"
 	},
 	"dependencies": {
+		"com.moths.core": "1.0.0"
 	},
 	"changelog": {
 		"1.0.0": "- Initial release"
 	},
+	"samples": [
+	],
 	"license": "MIT"
 }
