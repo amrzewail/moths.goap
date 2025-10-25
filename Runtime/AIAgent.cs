@@ -12,6 +12,7 @@ namespace Moths.GOAP
         [SerializeField] GOAPAction[] _actions;
 
         public ReadonlyArray<GOAPAction> Actions => _actions;
+        public GOAPPlan Plan => _currentPlan;
 
         public Context Context;
 
