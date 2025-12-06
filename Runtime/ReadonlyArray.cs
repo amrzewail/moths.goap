@@ -11,7 +11,7 @@ namespace Moths.GOAP.Collections
         private InterfaceReference<T>[] _refsArray;
         private int _length;
 
-        public T this[int index] => _array != null ? _array[index] : _refsArray[index];
+        public T this[int index] => _array != null ? _array[index] : _refsArray[index].Value;
 
         public int Length => _length;
 
