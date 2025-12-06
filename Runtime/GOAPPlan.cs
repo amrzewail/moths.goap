@@ -16,7 +16,15 @@ namespace Moths.GOAP
         private int _count;
         private int _currentIndex;
 
-        public GOAPAction Current => _count == 0 ? null : _actions[_count - _currentIndex - 1];
+        public GOAPAction Current
+        {
+            get
+            {
+                int index = _count - _currentIndex - 1;
+                if (index < 0 || index >= _count) return null;
+                return _actions[index];
+            }
+        }
 
         public void Next() => _currentIndex++;
 
