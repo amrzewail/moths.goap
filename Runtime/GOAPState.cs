@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace Moths.GOAP
 {
-    public abstract class GOAPState : ScriptableObject
+    public interface IGOAPState
     {
-        public abstract bool Validate(ref Context context);
-        
+        bool Validate(ref Context context);
     }
 }

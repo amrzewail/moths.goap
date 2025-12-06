@@ -38,5 +38,8 @@ MonoBehaviour:
         v1: 0
         v2: 0
       description: '- Initial release'
-    samples: []
+    samples:
+    - displayName: Simple Agent
+      description: 
+      path: Samples~/SimpleAgent
     license: 0

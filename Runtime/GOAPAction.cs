@@ -7,13 +7,13 @@ namespace Moths.GOAP
     public abstract class GOAPAction : ScriptableObject
     {
         [SerializeField] float _chance = 10;
-        [SerializeField] GOAPState[] _prerequisiteStates;
-        [SerializeField] GOAPState[] _promisedStates;
+        [SerializeField] InterfaceReference<IGOAPState>[] _prerequisiteStates;
+        [SerializeField] InterfaceReference<IGOAPState>[] _promisedStates;
         [SerializeField] InterfaceReference<IModifier>[] _chanceModifiers;
 
-        public ReadonlyArray<GOAPState> PrerequisiteState => new ReadonlyArray<GOAPState>(_prerequisiteStates);
+        public ReadonlyArray<IGOAPState> PrerequisiteState => new ReadonlyArray<IGOAPState>(_prerequisiteStates);
 
-        public ReadonlyArray<GOAPState> PromisedState => new ReadonlyArray<GOAPState>(_promisedStates);
+        public ReadonlyArray<IGOAPState> PromisedState => new ReadonlyArray<IGOAPState>(_promisedStates);
 
 
         public float CalculateChance(Context context)
@@ -26,6 +26,8 @@ namespace Moths.GOAP
         public virtual void PrepareContext(ref Context context) { }
 
         public abstract void ExecuteUpdate(ref Context context);
+
+        public abstract void CleanUp(ref Context context);
 
         protected virtual void Complete(ref Context context, bool success)
         {

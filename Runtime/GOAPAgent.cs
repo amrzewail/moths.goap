@@ -7,10 +7,12 @@ using UnityEngine;
 
 namespace Moths.GOAP
 {
-    public class AIAgent : MonoBehaviour
+    public class GOAPAgent : MonoBehaviour
     {
+        [SerializeField] bool _autoReplan = false;
         [SerializeField] GOAPAction[] _actions;
 
+        public bool AutoReplan { get => _autoReplan; set => _autoReplan = value; }
         public ReadonlyArray<GOAPAction> Actions => _actions;
         public GOAPPlan Plan => _currentPlan;
 
@@ -48,8 +50,25 @@ namespace Moths.GOAP
 
             ReorderGoals();
 
+            if (!_currentPlan.IsDoable(ref Context))
+            {
+                if (_autoReplan)
+                {
+                    Replan();
+                    return;
+                }
+                StopPlan();
+            }
+
             if (!_currentPlan.IsComplete() && _currentPlan.Current)
             {
+                if (AreGoalsCompleted())
+                {
+                    _currentPlan.Current.CleanUp(ref Context);
+                    _currentPlan.Complete();
+                    return;
+                }
+
                 _currentPlan.Current.ExecuteUpdate(ref Context);
 
                 var promisedStates = _currentPlan.Current.PromisedState;
@@ -66,8 +85,13 @@ namespace Moths.GOAP
 
                 if (actionCompleted)
                 {
+                    _currentPlan.Current.CleanUp(ref Context);
                     _currentPlan.Next();
                 }
+            }
+            else if (_autoReplan)
+            {
+                Replan();
             }
         }
 
@@ -92,6 +116,15 @@ namespace Moths.GOAP
             {
                 Replan();
             }
+        }
+
+        private bool AreGoalsCompleted()
+        {
+            for (int i = 0; i < _goals.Count; i++)
+            {
+                if (!_goals[i].IsCompleted(ref Context)) return false;
+            }
+            return true;
         }
 
         private int GoalsComparison(GOAPGoal x, GOAPGoal y)

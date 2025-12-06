@@ -16,9 +16,11 @@ namespace Moths.GOAP
         private int _count;
         private int _currentIndex;
 
-        public GOAPAction Current => _actions[_count - _currentIndex - 1];
+        public GOAPAction Current => _count == 0 ? null : _actions[_count - _currentIndex - 1];
 
         public void Next() => _currentIndex++;
+
+        public void Complete() => _currentIndex = _count;
 
         public bool IsComplete() => _currentIndex == _count;
 
@@ -43,5 +45,18 @@ namespace Moths.GOAP
 
             return plan;
         }
+
+
+        public bool IsDoable(ref Context context)
+        {
+            if (!Current) return false;
+            var preq = Current.PrerequisiteState;
+            for (int i = 0; i < preq.Length; i++)
+            {
+                if (!preq[i].Validate(ref context)) return false;
+            }
+            return true;
+        }
+
     }
 }

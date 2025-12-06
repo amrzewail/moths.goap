@@ -10,7 +10,7 @@ namespace Moths.GOAP
         private static List<GOAPAction> _actionPool = new List<GOAPAction>(100);
         private static List<float> _chancePool = new List<float>(100);
         
-        public static GOAPPlan CreatePlan(AIAgent agent, ref Context context, GOAPGoal goal)
+        public static GOAPPlan CreatePlan(GOAPAgent agent, ref Context context, GOAPGoal goal)
         {
             var plan = GOAPPlan.Create();
             var goalStates = goal.DesiredStates;
@@ -37,7 +37,7 @@ namespace Moths.GOAP
 
 
 
-        private static GOAPAction PickActionThatPromisesState(ReadonlyArray<GOAPAction> actions, GOAPState state, ref Context context)
+        private static GOAPAction PickActionThatPromisesState(ReadonlyArray<GOAPAction> actions, IGOAPState state, ref Context context)
         {
             _actionPool.Clear();
             _chancePool.Clear();
@@ -53,7 +53,7 @@ namespace Moths.GOAP
 
                 for (int j = 0; j < promisedStates.Length; j++)
                 {
-                    if (promisedStates[j] == state)
+                    if (promisedStates[j].GetType() == state.GetType())
                     {
                         _actionPool.Add(action);
                         float chance = action.CalculateChance(context);

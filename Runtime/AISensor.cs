@@ -9,11 +9,11 @@ namespace Moths.GOAP
 
         [SerializeField] GOAPGoal _goal;
 
-        protected AIAgent Agent { get; private set; }
+        protected GOAPAgent Agent { get; private set; }
 
         private void Awake()
         {
-            Agent = GetComponentInParent<AIAgent>();
+            Agent = GetComponentInParent<GOAPAgent>();
         }
 
         protected void ApplyGoal()

@@ -16,6 +16,11 @@
 		"1.0.0": "- Initial release"
 	},
 	"samples": [
+		{
+			"displayName": "Simple Agent",
+			"description": "",
+			"path": "Samples~/SimpleAgent"
+		}
 	],
 	"license": "MIT"
 }
