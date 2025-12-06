@@ -50,17 +50,7 @@ namespace Moths.GOAP
 
             ReorderGoals();
 
-            if (!_currentPlan.IsDoable(ref Context))
-            {
-                if (_autoReplan)
-                {
-                    Replan();
-                    return;
-                }
-                StopPlan();
-            }
-
-            if (!_currentPlan.IsComplete() && _currentPlan.Current)
+            if (!_currentPlan.IsComplete() && _currentPlan.Current && _currentPlan.IsDoable(ref Context))
             {
                 if (AreGoalsCompleted())
                 {
@@ -92,6 +82,10 @@ namespace Moths.GOAP
             else if (_autoReplan)
             {
                 Replan();
+            }
+            else
+            {
+                StopPlan();
             }
         }
 
@@ -154,7 +148,7 @@ namespace Moths.GOAP
         {
             if (HasGoal(goal)) return;
             _goals.Add(goal);
-            if (_goals.Count == 1)
+            if (_goals.Count == 1 || _isPlanStopped)
             {
                 Replan();
             }
