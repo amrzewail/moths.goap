@@ -15,6 +15,14 @@ namespace Moths.GOAP
         public bool AutoReplan { get => _autoReplan; set => _autoReplan = value; }
         public ReadonlyArray<GOAPAction> Actions => _actions;
         public GOAPPlan Plan => _currentPlan;
+        public GOAPGoal HighestGoal
+        {
+            get
+            {
+                if (_goals.Count == 0) return null;
+                return _goals[0];
+            }
+        }
 
         public Context Context;
 
@@ -50,9 +58,15 @@ namespace Moths.GOAP
 
             ReorderGoals();
 
-            if (!_currentPlan.IsComplete() && _currentPlan.Current && _currentPlan.IsDoable(ref Context))
+            if (_currentPlan.IsRunning() && _currentPlan.Goal != HighestGoal)
             {
-                if (AreGoalsCompleted())
+                _currentPlan.Current.CleanUp(ref Context);
+                _currentPlan.Complete();
+            }
+
+            if (_currentPlan.IsRunning() && _currentPlan.IsDoable(ref Context))
+            {
+                if (IsGoalCompleted())
                 {
                     _currentPlan.Current.CleanUp(ref Context);
                     _currentPlan.Complete();
@@ -103,22 +117,19 @@ namespace Moths.GOAP
         private void ReorderGoals()
         {
             if (_goals.Count == 0) return;
-            var currentGoal = _goals[0];
+            var currentGoal = HighestGoal;
             _goals.Sort(GoalsComparison);
 
-            if (currentGoal != _goals[0])
+            if (currentGoal != HighestGoal)
             {
                 Replan();
             }
         }
 
-        private bool AreGoalsCompleted()
+        private bool IsGoalCompleted()
         {
-            for (int i = 0; i < _goals.Count; i++)
-            {
-                if (!_goals[i].IsCompleted(ref Context)) return false;
-            }
-            return true;
+            if (HighestGoal == null) return true;
+            return HighestGoal.IsCompleted(ref Context);
         }
 
         private int GoalsComparison(GOAPGoal x, GOAPGoal y)
@@ -133,10 +144,14 @@ namespace Moths.GOAP
 
         public void Replan()
         {
-            if (_goals.Count == 0) return;
+            if (_goals.Count == 0)
+            {
+                _isPlanStopped = true;
+                return;
+            }
             _isPlanStopped = false;
-            _currentPlan = GOAPPlanner.CreatePlan(this, ref Context, _goals[0]);
-            Debug.Log($"AIAgent {this.name} Replan for Goal: {_goals[0]}");
+            _currentPlan = GOAPPlanner.CreatePlan(this, ref Context, HighestGoal);
+            Debug.Log($"AIAgent {this.name} Replan for Goal: {HighestGoal}");
         }
 
         public bool HasGoal(GOAPGoal goal)

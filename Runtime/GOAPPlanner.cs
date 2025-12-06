@@ -12,7 +12,7 @@ namespace Moths.GOAP
         
         public static GOAPPlan CreatePlan(GOAPAgent agent, ref Context context, GOAPGoal goal)
         {
-            var plan = GOAPPlan.Create();
+            var plan = GOAPPlan.Create(goal);
             var goalStates = goal.DesiredStates;
             var agentActions = agent.Actions;
 

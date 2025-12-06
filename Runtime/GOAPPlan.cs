@@ -16,6 +16,8 @@ namespace Moths.GOAP
         private int _count;
         private int _currentIndex;
 
+        public GOAPGoal Goal { get; private set; }
+
         public GOAPAction Current
         {
             get
@@ -32,13 +34,15 @@ namespace Moths.GOAP
 
         public bool IsComplete() => _currentIndex == _count;
 
+        public bool IsRunning() => !IsComplete() && Current;
+
         public void Push(GOAPAction action)
         {
             _actions.Add(action);
             _count++;
         }
 
-        public static GOAPPlan Create()
+        public static GOAPPlan Create(GOAPGoal goal)
         {
             if (_pool[0] == null)
             {
@@ -50,6 +54,7 @@ namespace Moths.GOAP
             plan._actions = _pool[plan._id % _pool.Length];
             plan._actions.Clear();
             plan._count = 0;
+            plan.Goal = goal;
 
             return plan;
         }
