@@ -64,6 +64,19 @@ namespace Moths.GOAP
                 _currentPlan.Complete();
             }
 
+            if (HighestGoal && IsGoalCompleted())
+            {
+                if (_currentPlan.IsRunning())
+                {
+                    _currentPlan.Current.CleanUp(ref Context);
+                    _currentPlan.Complete();
+                }
+
+                _goals.Remove(HighestGoal);
+                StopPlan();
+                return;
+            }
+
             if (_currentPlan.IsRunning() && _currentPlan.IsDoable(ref Context))
             {
                 if (IsGoalCompleted())
