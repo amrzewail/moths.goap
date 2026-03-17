@@ -73,7 +73,6 @@ namespace Moths.GOAP
                 }
 
                 _goals.Remove(HighestGoal);
-                StopPlan();
                 return;
             }
 
