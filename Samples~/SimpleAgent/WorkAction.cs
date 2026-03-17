@@ -15,5 +15,11 @@ namespace Moths.GOAP.Samples
                 Debug.Log("Agent has worked all day");
             }
         }
+
+
+        public override void CleanUp(ref Context context)
+        {
+
+        }
     }
 }

@@ -14,5 +14,10 @@ namespace Moths.GOAP.Samples
                 Debug.Log("Agent has slept");
             }
         }
+
+        public override void CleanUp(ref Context context)
+        {
+            
+        }
     }
 }

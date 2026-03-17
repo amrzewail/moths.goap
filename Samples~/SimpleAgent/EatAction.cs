@@ -13,5 +13,11 @@ namespace Moths.GOAP.Samples
                 Debug.Log("Agent has eaten");
             }
         }
+
+
+        public override void CleanUp(ref Context context)
+        {
+
+        }
     }
 }

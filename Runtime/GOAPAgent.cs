@@ -162,6 +162,9 @@ namespace Moths.GOAP
         public void SetGoal(GOAPGoal goal)
         {
             if (HasGoal(goal)) return;
+
+            if (goal.IsCompleted(ref Context)) return;
+
             _goals.Add(goal);
             if (_goals.Count == 1 || _isPlanStopped)
             {
