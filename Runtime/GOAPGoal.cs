@@ -25,7 +25,7 @@ namespace Moths.GOAP
             bool isCompleted = true;
             for (int i = 0; i < _desiredStates.Length; i++)
             {
-                if (_desiredStates[i] == null) continue;
+                if (!_desiredStates[i]) continue;
                 var state = _desiredStates[i].Value;
                 if (state == null) continue;
                 if (state.Validate(ref context)) continue;
